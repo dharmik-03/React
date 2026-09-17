@@ -5,7 +5,8 @@ import OnSubmit from './components/03_onSubmit'
 import Props from './components/04_props'
 import Conditional_rendering from './components/05_conditional_rendering'
 import Conditional_rendering_2 from './components/06_conditional_rendering'
-
+import UncontrolledForm from "./components/07_unControlled_Components"
+import ControlledForm from './components/08_controlled_Components'
 const App = () => {
   return (
     // <OnChange_01/>
@@ -13,7 +14,9 @@ const App = () => {
     // <OnSubmit/>
     // <Props name="dharmik"/>
     // <Conditional_rendering/>
-    <Conditional_rendering_2/>
+    // <Conditional_rendering_2/>
+    // <UncontrolledForm/>
+    <ControlledForm/>
   )
 }
 
