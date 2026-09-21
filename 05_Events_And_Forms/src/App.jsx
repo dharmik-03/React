@@ -7,6 +7,7 @@ import Conditional_rendering from './components/05_conditional_rendering'
 import Conditional_rendering_2 from './components/06_conditional_rendering'
 import UncontrolledForm from "./components/07_unControlled_Components"
 import ControlledForm from './components/08_controlled_Components'
+import Validation_08 from './components/09_validation'
 const App = () => {
   return (
     // <OnChange_01/>
@@ -16,7 +17,8 @@ const App = () => {
     // <Conditional_rendering/>
     // <Conditional_rendering_2/>
     // <UncontrolledForm/>
-    <ControlledForm/>
+    // <ControlledForm/>
+    <Validation_08/>
   )
 }
 
