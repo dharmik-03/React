@@ -7,6 +7,7 @@ const TodoTable = ({ todo }) => {
 
         <>
 
+
         <br />
 
             <table border={1} style={{margin:"10px",width:"500px"}}>
