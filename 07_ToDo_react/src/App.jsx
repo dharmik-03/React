@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { use, useState } from 'react'
 import AddTODO from './components/AddTODO'
 import TodoTable from './components/TodoTable'
 
@@ -21,6 +21,10 @@ const App = () => {
 
   const [todo, setTodo] = useState(IntialTODOS)
 
+  const [editIndex, setEditIndex] = useState(null)
+
+
+
 
   const addTodo = (input) => {
     const newTODO = {
@@ -34,15 +38,37 @@ const App = () => {
     setTodo((prev) => [...prev, newTODO])
   }
 
+  const editTODO = (index) => {
+    setEditIndex(index)
+  }
+
+  const updateTODO = (index, input) => {
+    setTodo((prev) => {
+      const updateTodo = [...prev]
+
+      updateTodo[index] = {
+        ...updateTodo[index],
+        task: input.task,
+        description: input.description
+      }
+
+      return updateTodo
+
+
+    })
+
+    setEditIndex(null)
+  }
+
   console.log("TODO", todo)
 
 
   return (
     <>
-      <AddTODO addTodo={addTodo} />
+      <AddTODO addTodo={addTodo} updateTODO={updateTODO} todo={todo} editIndex={editIndex} />
 
 
-      <TodoTable todo={todo} />
+      <TodoTable todo={todo} editTODO={editTODO} />
     </>
   )
 }
