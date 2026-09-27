@@ -38,6 +38,10 @@ const AddTODO = ({ addTodo, todo, updateTODO, editIndex }) => {
         if (editIndex !== null) {
             updateTODO(editIndex, input)
         } else {
+
+            if (!input.task || !input.description) {
+                return alert("Enter Task And Description")
+            }
             addTodo(input)
 
 
@@ -57,11 +61,11 @@ const AddTODO = ({ addTodo, todo, updateTODO, editIndex }) => {
             <form onSubmit={HandleSubmit}>
                 <br />
 
-                <input type="text" placeholder='enter task' value={input.task} onChange={(e) => handleChange("task", e)} style={{ padding: "10px", borderRadius: "10px", fontSize: "20px", margin: "10px" }} />
+                <input type="text" placeholder='enter task' value={input.task} onChange={(e) => handleChange("task", e)} style={{ padding: "10px", borderRadius: "10px", fontSize: "20px", margin: "10px" }} required />
                 <br />
                 <br />
 
-                <input type="text" placeholder='enter description' value={input.description} onChange={(e) => handleChange("description", e)} style={{ padding: "10px", borderRadius: "10px", fontSize: "20px", margin: "10px" }} />
+                <input type="text" placeholder='enter description' value={input.description} onChange={(e) => handleChange("description", e)} style={{ padding: "10px", borderRadius: "10px", fontSize: "20px", margin: "10px" }} required />
 
                 <br /><br />
 

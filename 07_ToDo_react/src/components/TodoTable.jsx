@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TodoTable = ({ todo, editTODO }) => {
+const TodoTable = ({ todo, editTODO ,deleteTodo}) => {
 
 
     return (
@@ -27,7 +27,7 @@ const TodoTable = ({ todo, editTODO }) => {
                             <td>{item.description}</td>
                             <td >
                                 <button onClick={() => editTODO(index)} style={{ margin: "5px" }}>EDIT</button>
-                                <button>DELETE</button>
+                                <button onClick={()=>deleteTodo(index)}>DELETE</button>
                             </td>
                         </tr>
                     ))}

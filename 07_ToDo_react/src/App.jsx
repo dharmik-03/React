@@ -60,6 +60,11 @@ const App = () => {
     setEditIndex(null)
   }
 
+
+  const deleteTodo = (index) => {
+  setTodo(todo.filter((item, i) => i !== index))
+}
+
   console.log("TODO", todo)
 
 
@@ -68,7 +73,7 @@ const App = () => {
       <AddTODO addTodo={addTodo} updateTODO={updateTODO} todo={todo} editIndex={editIndex} />
 
 
-      <TodoTable todo={todo} editTODO={editTODO} />
+      <TodoTable todo={todo} editTODO={editTODO}  deleteTodo={deleteTodo}/>
     </>
   )
 }
