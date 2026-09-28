@@ -1,0 +1,30 @@
+body {
+    background-color: #c5dfff !important;
+}
+
+.app {
+    padding: 35px 20px !important;
+}
+
+.todo-box {
+    max-width: 1050px !important;
+    margin: auto !important;
+    background: white !important;
+    padding: 30px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+.todo-form {
+    max-width: 650px !important;
+    margin: 25px auto !important;
+}
+
+.todo-form input {
+    height: 50px !important;
+    width: 300px !important;
+    border: 1px solid black;
+    font-size: 17px !important;
+    padding: 10px 15px !important;
+}

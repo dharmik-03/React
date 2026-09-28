@@ -1,41 +1,84 @@
 import React from 'react'
 
-const TodoTable = ({ todo, editTODO ,deleteTodo}) => {
+const TodoTable = ({
+  todo,
+  editTODO,
+  deleteTodo,
+  toggleTaskCompleted
+}) => {
 
+  return (
+    <div className="container mt-4">
 
-    return (
+      <div className="table-responsive">
+        <table
+          className="table table-bordered text-center align-middle"
+          style={{ border: "2px solid #999" }}
+        >
 
-        <>
+          <thead
+            style={{
+              backgroundColor: "lightgreen",
+              fontSize: "18px",
+              border: "1px solid #888"
+            }}
+          >
+            <tr>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Task</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
+          <tbody
+            style={{
+              backgroundColor: "lightblue"
+            }}
+          >
+            {todo.map((item, index) => (
+              <tr key={item.id}>
 
-            <br />
+                <td>{index + 1}</td>
 
-            <table border={1} style={{ margin: "10px", width: "500px" }}>
-                <thead style={{ padding: "20px", fontSize: "20px", backgroundColor: "lightgreen" }}>
-                    <tr>
-                        <th>ID</th>
-                        <th>TASK</th>
-                        <th>DESCRIPTION</th>
-                        <th>ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody style={{ padding: "20px", fontSize: "20px", backgroundColor: "lightblue" }}>
-                    {todo.map((item, index) => (
-                        <tr key={item.i}>
-                            <td>{index + 1}</td>
-                            <td>{item.task}</td>
-                            <td>{item.description}</td>
-                            <td >
-                                <button onClick={() => editTODO(index)} style={{ margin: "5px" }}>EDIT</button>
-                                <button onClick={()=>deleteTodo(index)}>DELETE</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={item.completed}
+                    onChange={() => toggleTaskCompleted(item.id)}
+                  />
+                </td>
 
-    )
+                <td>{item.task}</td>
+
+                <td>{item.description}</td>
+
+                <td>
+                  <button
+                    className="btn btn-sm btn-outline-primary me-2"
+                    onClick={() => editTODO(index)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => deleteTodo(index)}
+                  >
+                    Delete
+                  </button>
+                </td>
+
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+  )
 }
 
 export default TodoTable
