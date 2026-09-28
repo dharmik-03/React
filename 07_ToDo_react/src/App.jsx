@@ -33,8 +33,6 @@ const App = () => {
       description: input.description,
     }
 
-
-
     setTodo((prev) => [...prev, newTODO])
   }
 
