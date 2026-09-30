@@ -13,7 +13,7 @@ const Service = () => {
       >
         <Modal.Dialog>
           <Modal.Header >
-            <Modal.Title>This Is Serive page</Modal.Title>
+            <Modal.Title>This Is Service page</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
