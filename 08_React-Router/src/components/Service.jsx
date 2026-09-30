@@ -4,9 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 
 const Service = () => {
   return (
-<>
+    <>
 
-<h3>Service Page</h3>
+      <h3>Service Page</h3>
       <div bg="dark" data-bs-theme="dark"
         className="modal show"
         style={{ display: 'block', position: 'initial' }}
@@ -22,7 +22,7 @@ const Service = () => {
 
         </Modal.Dialog>
       </div>
-</>
+    </>
 
   )
 }

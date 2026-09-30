@@ -28,12 +28,12 @@ const App = () => {
           element: <Product />
         },
         {
-          path:"service",
-          element:<Service/>
+          path: "service",
+          element: <Service />
         },
         {
-          path:"about",
-          element:<About/>
+          path: "about",
+          element: <About />
         }
       ]
     }

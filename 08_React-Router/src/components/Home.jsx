@@ -8,8 +8,8 @@ const Home = () => {
   return (
     <>
 
-    <h3>Home Page</h3>
-      <div  bg="dark" data-bs-theme="dark"
+      <h3>Home Page</h3>
+      <div bg="dark" data-bs-theme="dark"
         className="modal show"
         style={{ display: 'block', position: 'initial' }}
       >
@@ -24,8 +24,8 @@ const Home = () => {
 
         </Modal.Dialog>
       </div>
-    
-       
+
+
     </>
   )
 }
