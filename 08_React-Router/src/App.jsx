@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 
 import MainLayout from './routes/MainLayout'
-import Home from "./components/Home"
-import Product from "./components/Product"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Service from './components/Service'
-import About from './components/About'
+import ErrorPage from './components/Error'
+import Loading from './components/Loading'
 
 
+
+const Home = lazy(() => import("./components/Home"))
+const About = lazy(() => import("./components/About"))
+const Service = lazy(() => import("./components/Service"))
+const Product = lazy(() => import("./components/Product"))
 
 const App = () => {
 
@@ -17,14 +20,15 @@ const App = () => {
     {
       path: "/",
       element: <MainLayout />,
+      errorElement: <ErrorPage />,
       children: [
         {
-          path: "/",
+          index: true,
           element: <Home />,
 
         },
         {
-          path: "product",
+          path: "product/:id",
           element: <Product />
         },
         {
@@ -39,7 +43,13 @@ const App = () => {
     }
   ])
 
-  return <RouterProvider router={router} />
+
+  return <Suspense fallback={<Loading />}>
+
+    <RouterProvider router={router} />
+
+  </Suspense>
+
 }
 
 export default App
