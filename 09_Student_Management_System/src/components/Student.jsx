@@ -1,0 +1,66 @@
+import React, { useEffect, useState } from 'react'
+import { AllStudent } from "../api/StudentFetch"
+
+
+const Student = () => {
+
+
+
+  const [students, setStudent] = useState([])
+  const [loading, SetLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    LoadData()
+  },[])
+
+
+  async function LoadData() {
+
+
+    SetLoading(true)
+
+    const data = await AllStudent()
+
+    setStudent(data)
+
+  }
+
+  console.log(students)
+
+
+  return (
+    <>
+
+      <br />
+      <div className='container'>
+
+        <table className='table table-bordered table-striped'>
+          <thead>
+            <tr>
+              <th>Sr no.</th>
+              <th>name</th>
+              <th>GR ID</th>
+              <th>Course</th>
+              <th>Mobile No.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {students.map((student, index) => (
+              <tr key={student.id}>
+                <td>{index + 1}</td>
+                <td>{student.name}</td>
+                <td>{student.GRid}</td>
+                <td>{student.course}</td>
+                <td>{student.MobileNumber}</td>
+              </tr>
+           ) )}
+          </tbody>
+        </table>
+
+      </div>
+    </>
+  )
+}
+
+export default Student
