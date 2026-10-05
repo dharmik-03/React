@@ -12,7 +12,7 @@ const Student = () => {
 
   useEffect(() => {
     LoadData()
-  },[])
+  }, [])
 
 
   async function LoadData() {
@@ -54,7 +54,7 @@ const Student = () => {
                 <td>{student.course}</td>
                 <td>{student.MobileNumber}</td>
               </tr>
-           ) )}
+            ))}
           </tbody>
         </table>
 

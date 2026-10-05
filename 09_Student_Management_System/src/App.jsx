@@ -4,6 +4,7 @@ import MainLayout from './routes/MainLayout'
 import Error from './ui/Error'
 import { lazy, Suspense } from 'react'
 import Loading from './ui/Loading'
+import AddStudent from './components/AddStudent'
 
 
 const Home = lazy(() => import("./components/Student"))
@@ -23,6 +24,10 @@ const App = () => {
           index: true,
           element: <Home />
 
+        },
+        {
+          path:"add",
+          element:<AddStudent/>
         }
       ]
     }
