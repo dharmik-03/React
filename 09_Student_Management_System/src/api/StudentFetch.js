@@ -11,5 +11,37 @@ export const AllStudent = async () => {
     throw new Error("failed");
   }
 
-return data.AllStudentsData;
+  return data.AllStudentsData;
 };
+
+export const AddStudent = async (empDATA) => {
+
+  try {
+
+    const res = await fetch(`${BASEURL}/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(empDATA)
+    })
+
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      throw new Error(data.message || "failed to add Data")
+    }else{
+      console.log("student added successfully")
+    }
+
+
+    return data
+
+  } catch (error) {
+    console.log(error.message)
+    throw error
+
+  }
+
+}

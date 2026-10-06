@@ -33,9 +33,8 @@ const App = () => {
     }
   ])
 
-  return <Suspense fallback={<Loading />}>
-    <RouterProvider router={router} />
-  </Suspense>
+  return <RouterProvider router={router} />
+
 }
 
 export default App

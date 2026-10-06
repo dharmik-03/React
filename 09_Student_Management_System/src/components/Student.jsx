@@ -16,14 +16,19 @@ const Student = () => {
 
 
   async function LoadData() {
+    try {
+      SetLoading(true);
 
+      const data = await AllStudent();
 
-    SetLoading(true)
+      setStudent(data);
 
-    const data = await AllStudent()
-
-    setStudent(data)
-
+    } catch (error) {
+      console.log("ERROR:", error);
+      setError(error.message);
+    } finally {
+      SetLoading(false);
+    }
   }
 
   console.log(students)
