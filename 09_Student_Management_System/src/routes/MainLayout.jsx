@@ -1,7 +1,6 @@
-import { Suspense } from "react"
 import Navbars from "../ui/navbar"
 import { Outlet } from 'react-router-dom'
-import Loading from "../ui/Loading"
+import { Col, Container, Row } from "react-bootstrap"
 
 
 const MainLayout = () => {
@@ -9,10 +8,16 @@ const MainLayout = () => {
 
 
     <>
-      <Navbars />
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense> </>
+      <Container>
+        <Row>
+          <Col>
+            <Navbars />
+            <Outlet />
+          </Col>
+        </Row>
+      </Container>
+
+    </>
   )
 }
 

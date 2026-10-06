@@ -26,15 +26,16 @@ const App = () => {
 
         },
         {
-          path:"add",
-          element:<AddStudent/>
+          path: "add",
+          element: <AddStudent />
         }
       ]
     }
   ])
 
-  return <RouterProvider router={router} />
-
+  return <Suspense fallback={<Loading />}>
+    <RouterProvider router={router} />
+  </Suspense>
 }
 
 export default App
