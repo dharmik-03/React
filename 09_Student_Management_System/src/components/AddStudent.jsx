@@ -51,6 +51,7 @@ function FormExample() {
                                     <Form.Control
                                         type="text"
                                         name="name"
+                                        placeholder="Name"
                                         value={values.name}
                                         onChange={handleChange}
                                         isValid={touched.name && !errors.name}
@@ -97,6 +98,7 @@ function FormExample() {
                                         type="text"
                                         required
                                         name="course"
+                                        placeholder="course"
                                         value={values.course}
                                         onChange={handleChange}
                                         isInvalid={!!errors.course}
@@ -120,6 +122,7 @@ function FormExample() {
                                         type="number"
                                         required
                                         name="MobileNumber"
+                                        placeholder="Mobile Number"
                                         value={values.MobileNumber}
                                         onChange={handleChange}
                                         isInvalid={!!errors.MobileNumber}
