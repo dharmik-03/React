@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { AllStudent } from "../api/StudentFetch"
-
+// import { AllStudent } from "../api/StudentFetch"
+import { AllStudent } from '../api/axios'
+import { Button } from 'react-bootstrap'
 
 const Student = () => {
 
@@ -48,6 +49,7 @@ const Student = () => {
               <th>GR ID</th>
               <th>Course</th>
               <th>Mobile No.</th>
+              <th colSpan={2}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -58,6 +60,8 @@ const Student = () => {
                 <td>{student.GRid}</td>
                 <td>{student.course}</td>
                 <td>{student.MobileNumber}</td>
+                <td ><Button variant="warning">Edit</Button></td>
+                <td><Button variant='danger'>Delete</Button></td>
               </tr>
             ))}
           </tbody>

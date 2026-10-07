@@ -31,7 +31,7 @@ export const AddStudent = async (empDATA) => {
 
     if (!res.ok) {
       throw new Error(data.message || "failed to add Data")
-    }else{
+    } else {
       console.log("student added successfully")
     }
 

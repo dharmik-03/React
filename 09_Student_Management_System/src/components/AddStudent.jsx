@@ -4,16 +4,19 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import validationSchema from '../validation/validation';
-import { AddStudent } from "../api/StudentFetch"
-import { useState } from 'react';
+// import { AddStudent } from "../api/StudentFetch"
+import { AddStudent } from "../api/axios"
+import { useNavigate } from 'react-router-dom';
 
 
 function FormExample() {
     const { Formik } = formik;
-    const [student, SetStudent] = useState(false)
+    const navigate = useNavigate()
+
 
     return (
         <>
+
 
 
             <div className="container mt-5">
@@ -21,11 +24,13 @@ function FormExample() {
                 <Formik
                     validationSchema={validationSchema}
                     onSubmit={async (value, { resetForm }) => {
-                        await AddStudent(value)
-                        SetStudent(true)
+                        const result = await AddStudent(value)
+
                         resetForm()
 
-
+                        if (result) {
+                            navigate("/")
+                        }
 
                     }}
                     initialValues={{
@@ -140,22 +145,8 @@ function FormExample() {
                     )}
                 </Formik >
 
-                <div className="mt-3" >
-                    {student && (
-                        <>
-                            <h3 style={{ color: "green" }}>
-                                Student Added Successfully
-                            </h3>
 
-                            <p>
-                                You can see here{" "}
-                                <a href="/">
-                                    Go To Home Page
-                                </a>
-                            </p>
-                        </>
-                    )}
-                </div>
+
             </div >
         </>
     );
