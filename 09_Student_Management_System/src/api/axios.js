@@ -36,3 +36,21 @@ export const AddStudent = async (StudentData) => {
         throw error
     }
 }
+
+export const DeleteStudent = async (id) => {
+    try {
+
+
+        const res = await axios.delete(`${BASEURL}/delete/${id}`)
+
+        if (res.status !== 200) {
+            throw new Error("failed to fetch data")
+        }
+
+        return res.data
+
+    } catch (error) {
+        console.log(error.message)
+        throw error
+    }
+}

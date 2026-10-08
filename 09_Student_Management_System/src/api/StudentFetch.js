@@ -45,3 +45,26 @@ export const AddStudent = async (empDATA) => {
   }
 
 }
+
+
+export const DeleteStudent = async (id) => {
+  try {
+    const res = await fetch(`${BASEURL}/delete/${id}`, {
+      method: "DELETE"
+    })
+
+    const data = await res.json()
+
+
+    if (!res.ok) {
+      throw new Error("failed to delete");
+    }
+
+
+    return data
+
+  } catch (error) {
+    console.log(error.message)
+    throw error
+  }
+}

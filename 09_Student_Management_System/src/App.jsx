@@ -4,7 +4,7 @@ import MainLayout from './routes/MainLayout'
 import Error from './ui/Error'
 import { lazy, Suspense } from 'react'
 import Loading from './ui/Loading'
-import AddStudent from './components/AddStudent'
+import AddStudent from './components/StudentForm'
 
 
 const Home = lazy(() => import("./components/Student"))

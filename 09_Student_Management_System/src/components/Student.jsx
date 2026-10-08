@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 // import { AllStudent } from "../api/StudentFetch"
 import { AllStudent } from '../api/axios'
 import { Button } from 'react-bootstrap'
+// import { DeleteStudent } from '../api/StudentFetch'
+import { DeleteStudent } from '../api/axios'
 
 const Student = () => {
 
@@ -14,6 +16,22 @@ const Student = () => {
   useEffect(() => {
     LoadData()
   }, [])
+
+
+  const handleDelete=async function (id) {
+   
+
+    try {
+      
+      await DeleteStudent(id)
+
+      LoadData()
+
+    } catch (error) {
+      console.log(error)
+    } 
+
+  }
 
 
   async function LoadData() {
@@ -60,8 +78,8 @@ const Student = () => {
                 <td>{student.GRid}</td>
                 <td>{student.course}</td>
                 <td>{student.MobileNumber}</td>
-                <td ><Button variant="warning">Edit</Button></td>
-                <td><Button variant='danger'>Delete</Button></td>
+                <td ><Button variant="warning" >Edit</Button></td>
+                <td><Button variant='danger' onClick={() => handleDelete(student._id)}>Delete</Button></td>
               </tr>
             ))}
           </tbody>
