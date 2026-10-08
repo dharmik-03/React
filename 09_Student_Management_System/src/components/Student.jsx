@@ -4,9 +4,12 @@ import { AllStudent } from '../api/axios'
 import { Button } from 'react-bootstrap'
 // import { DeleteStudent } from '../api/StudentFetch'
 import { DeleteStudent } from '../api/axios'
+import { useNavigate } from 'react-router-dom'
 
 const Student = () => {
 
+
+  const navigate = useNavigate()
 
 
   const [students, setStudent] = useState([])
@@ -18,18 +21,18 @@ const Student = () => {
   }, [])
 
 
-  const handleDelete=async function (id) {
-   
+  const handleDelete = async function (id) {
+
 
     try {
-      
+
       await DeleteStudent(id)
 
       LoadData()
 
     } catch (error) {
       console.log(error)
-    } 
+    }
 
   }
 
@@ -78,7 +81,7 @@ const Student = () => {
                 <td>{student.GRid}</td>
                 <td>{student.course}</td>
                 <td>{student.MobileNumber}</td>
-                <td ><Button variant="warning" >Edit</Button></td>
+                <td ><Button variant="warning" onClick={()=>navigate(`/edit/${student._id}`)}>Edit</Button></td>
                 <td><Button variant='danger' onClick={() => handleDelete(student._id)}>Delete</Button></td>
               </tr>
             ))}

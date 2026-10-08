@@ -54,3 +54,41 @@ export const DeleteStudent = async (id) => {
         throw error
     }
 }
+
+
+export const UpdateStudent = async (id, studentData) => {
+    try {
+
+        const res = await axios.patch(`${BASEURL}/updateManually/${id}`, studentData)
+
+
+        if (res.status !== 200) {
+            throw new Error("failed to update student")
+        }
+
+        return res.data
+
+    } catch (error) {
+        console.log(error.message)
+        throw error
+    }
+}
+
+
+export const getStudent = async (id) => {
+    try {
+
+        const res = await axios(`${BASEURL}/StudentWithId/${id}`)
+
+
+        if (res.status !== 200) {
+            throw new Error("failed to fetch data")
+        }
+
+        return res.data.studentWithId
+
+    } catch (error) {
+        console.log(error.message)
+        throw error
+    }
+}

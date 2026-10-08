@@ -5,17 +5,61 @@ import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import validationSchema from '../validation/validation';
 // import { AddStudent } from "../api/StudentFetch"
-import { AddStudent } from "../api/axios"
-import { useNavigate } from 'react-router-dom';
+import { AddStudent, UpdateStudent } from "../api/axios"
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getStudent } from '../api/axios';
 
 
 function FormExample() {
     const { Formik } = formik;
     const navigate = useNavigate()
 
+    const { id } = useParams()
+
+    const [intialValue, setIntialValue] = useState({
+        name: '',
+        GRid: '',
+        course: '',
+        MobileNumber: '',
+    })
+
+
+    useEffect(() => {
+
+        if (id) {
+            LoadStudent()
+
+
+        }
+
+    }, [id])
+
+
+    async function LoadStudent() {
+        try {
+
+            const data = await getStudent(id)
+
+            console.log("ID:", id)
+            console.log("STUDENT DATA:", data)
+
+            setIntialValue({
+                name: data.name,
+                GRid: data.GRid,
+                course: data.course,
+                MobileNumber: data.MobileNumber,
+            })
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
 
     return (
         <>
+
 
 
 
@@ -24,22 +68,30 @@ function FormExample() {
                 <Formik
                     validationSchema={validationSchema}
                     onSubmit={async (value, { resetForm }) => {
-                        const result = await AddStudent(value)
+                        try {
+                            let result
 
-                        resetForm()
+                            if (id) {
+                                result = await UpdateStudent(id, value)
+                            } else {
+                                result = await AddStudent(value)
+                            }
 
-                        if (result) {
-                            navigate("/")
+
+                            if (result) {
+                                resetForm()
+
+                                navigate("/")
+                            }
+
+                        } catch (error) {
+                            console.log(error);
+
                         }
 
                     }}
-                    initialValues={{
-                        name: '',
-                        GRid: '',
-                        course: '',
-                        MobileNumber: '',
-
-                    }}
+                    initialValues={intialValue}
+                    enableReinitialize
                 >
                     {({ handleSubmit, handleChange, values, touched, errors }) => (
                         <Form noValidate onSubmit={handleSubmit}>
@@ -140,7 +192,8 @@ function FormExample() {
 
                             </Row>
 
-                            <Button type="submit">Submit form</Button>
+                            <Button type="submit">{
+                                id ? "Update Student" : "Add Student"}  </Button>
                         </Form>
                     )}
                 </Formik >

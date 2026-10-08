@@ -28,6 +28,10 @@ const App = () => {
         {
           path: "add",
           element: <AddStudent />
+        },
+        {
+          path:"edit/:id",
+          element:<AddStudent/>
         }
       ]
     }
