@@ -30,8 +30,8 @@ const App = () => {
           element: <AddStudent />
         },
         {
-          path:"edit/:id",
-          element:<AddStudent/>
+          path: "edit/:id",
+          element: <AddStudent />
         }
       ]
     }

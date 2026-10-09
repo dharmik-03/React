@@ -81,7 +81,7 @@ const Student = () => {
                 <td>{student.GRid}</td>
                 <td>{student.course}</td>
                 <td>{student.MobileNumber}</td>
-                <td ><Button variant="warning" onClick={()=>navigate(`/edit/${student._id}`)}>Edit</Button></td>
+                <td ><Button variant="warning" onClick={() => navigate(`/edit/${student._id}`)}>Edit</Button></td>
                 <td><Button variant='danger' onClick={() => handleDelete(student._id)}>Delete</Button></td>
               </tr>
             ))}
