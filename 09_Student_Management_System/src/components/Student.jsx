@@ -82,7 +82,7 @@ const Student = () => {
                 <td>{student.course}</td>
                 <td>{student.MobileNumber}</td>
                 <td ><Button variant="warning" onClick={() => navigate(`/edit/${student._id}`)}>Edit</Button></td>
-                <td><Button variant='warning' onClick={() => handleDelete(student._id)}>Delete</Button></td>
+                <td><Button variant='danger' onClick={() => handleDelete(student._id)}>Delete</Button></td>
               </tr>
             ))}
           </tbody>
