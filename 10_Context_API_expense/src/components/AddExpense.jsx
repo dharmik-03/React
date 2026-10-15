@@ -12,7 +12,7 @@ const AddExpense = () => {
         type: ""
     })
 
-    const handleChange = (field,e) => {
+    const handleChange = (field, e) => {
         setInput((prev) => {
             return {
                 ...prev,
@@ -23,9 +23,9 @@ const AddExpense = () => {
     }
 
     const handleSubmit = (e) => {
-      
-         e.preventDefault()
-         console.log(input)
+
+        e.preventDefault()
+        console.log(input)
 
     }
 
