@@ -7,9 +7,9 @@ export const expenseContext = createContext({
     handleDelete: () => { },
     editVal: null,
     handleEdit: () => { },
-    credit:0,
-    debit:0,
-    balance:0
+    credit: 0,
+    debit: 0,
+    balance: 0
 })
 
 const Context = ({ children }) => {
