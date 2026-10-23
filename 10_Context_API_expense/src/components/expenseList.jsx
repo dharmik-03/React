@@ -1,10 +1,10 @@
 
 import { useContext, useState } from 'react'
-import { expenseContext } from '../context/context'
+import { ExpenceContext } from '../context/contexts'
 
 const ExpenseList = () => {
 
-    const { expenseList, handleDelete, handleEdit } = useContext(expenseContext)
+    const { expenseList, handleDelete, handleEdit } = useContext(ExpenceContext)
 
     const [expenseTQuery, setExpenseTQuery] = useState({
         title: "",

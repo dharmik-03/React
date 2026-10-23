@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { expenseContext } from '../context/context'
+import { ExpenceContext } from '../context/contexts'
 
 const ExpenseStats = () => {
 
 
-    const { balance, credit, debit } = useContext(expenseContext)
+    const { balance, credit, debit } = useContext(ExpenceContext)
 
     return (
         <>

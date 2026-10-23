@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { expenseContext } from '../context/context'
-
+import { ExpenceContext } from '../context/contexts'
 const AddExpense = () => {
 
-    const { handleAdd ,editVal} = useContext(expenseContext)
+    const { handleAdd ,editVal} = useContext(ExpenceContext)
 
 
     const [input, setInput] = useState({
