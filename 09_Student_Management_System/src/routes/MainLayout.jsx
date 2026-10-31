@@ -1,24 +1,35 @@
-import Navbars from "../ui/navbar"
-import { Outlet } from 'react-router-dom'
-import { Col, Container, Row } from "react-bootstrap"
-
+import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from '../ui/Navbar';
+import Sidebar from '../ui/Sidebar';
+import { ThemeProvider } from '../context/ThemeContext';
 
 const MainLayout = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
+    <ThemeProvider>
+      <div className="app-shell">
+        <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
+        <div className="app-main">
+          <Navbar onToggleSidebar={toggleSidebar} />
 
-    <>
-      <Container>
-        <Row>
-          <Col>
-            <Navbars />
+          <main className="content-container">
             <Outlet />
-          </Col>
-        </Row>
-      </Container>
+          </main>
+        </div>
+      </div>
+    </ThemeProvider>
+  );
+};
 
-    </>
-  )
-}
-
-export default MainLayout
+export default MainLayout;

@@ -1,94 +1,67 @@
-import axios from "axios"
+import axios from "axios";
+
 const BASEURL = import.meta.env.VITE_BASE_URL;
 
-
 export const AllStudent = async () => {
-    try {
+  const res = await axios.get(`${BASEURL}/AllStudent`);
 
-        const res = await axios(`${BASEURL}/AllStudent`)
+  if (res.status !== 200 || !res.data) {
+    throw new Error("Failed to fetch students from server");
+  }
 
-        if (res.status !== 200) {
-            throw new Error("failed to fetch data")
-        }
+  return res.data.AllStudentsData || [];
+};
 
-        console.log(res)
-        return res.data.AllStudentsData
+export const AddStudent = async (studentData) => {
+  const payload = {
+    name: studentData.name.trim(),
+    GRid: Number(studentData.GRid),
+    course: studentData.course,
+    MobileNumber: Number(studentData.MobileNumber),
+  };
 
-    } catch (error) {
-        console.log(error.message)
-        throw error
-    }
-}
+  const res = await axios.post(`${BASEURL}/add`, payload);
 
-export const AddStudent = async (StudentData) => {
-    try {
+  if (res.status !== 200 && res.status !== 201) {
+    throw new Error(res.data?.message || "Failed to add student to database");
+  }
 
-        const res = await axios.post(`${BASEURL}/add`, StudentData)
-
-        if (res.status !== 201) {
-            throw new Error("failed to add student")
-        }
-
-        return res.data
-
-    } catch (error) {
-        console.log(error.message)
-        throw error
-    }
-}
+  return res.data;
+};
 
 export const DeleteStudent = async (id) => {
-    try {
+  const res = await axios.delete(`${BASEURL}/delete/${id}`);
 
+  if (res.status !== 200) {
+    throw new Error(res.data?.message || "Failed to delete student from database");
+  }
 
-        const res = await axios.delete(`${BASEURL}/delete/${id}`)
-
-        if (res.status !== 200) {
-            throw new Error("failed to fetch data")
-        }
-
-        return res.data
-
-    } catch (error) {
-        console.log(error.message)
-        throw error
-    }
-}
-
+  return res.data;
+};
 
 export const UpdateStudent = async (id, studentData) => {
-    try {
+  const payload = {
+    name: studentData.name.trim(),
+    GRid: Number(studentData.GRid),
+    course: studentData.course,
+    MobileNumber: Number(studentData.MobileNumber),
+  };
 
-        const res = await axios.patch(`${BASEURL}/updateManually/${id}`, studentData)
+  const res = await axios.patch(`${BASEURL}/updateManually/${id}`, payload);
 
+  if (res.status !== 200) {
+    throw new Error(res.data?.message || "Failed to update student in database");
+  }
 
-        if (res.status !== 200) {
-            throw new Error("failed to update student")
-        }
-
-        return res.data
-
-    } catch (error) {
-        console.log(error.message)
-        throw error
-    }
-}
-
+  return res.data;
+};
 
 export const getStudent = async (id) => {
-    try {
+  const res = await axios.get(`${BASEURL}/StudentWithId/${id}`);
 
-        const res = await axios(`${BASEURL}/StudentWithId/${id}`)
+  if (res.status !== 200 || !res.data?.studentWithId) {
+    throw new Error(res.data?.message || "Student not found in database");
+  }
 
-
-        if (res.status !== 200) {
-            throw new Error("failed to fetch data")
-        }
-
-        return res.data.studentWithId
-
-    } catch (error) {
-        console.log(error.message)
-        throw error
-    }
-}
+  return res.data.studentWithId;
+};

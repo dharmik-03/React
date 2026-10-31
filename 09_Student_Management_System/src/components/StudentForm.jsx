@@ -1,209 +1,238 @@
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import * as formik from 'formik';
-import validationSchema from '../validation/validation';
-// import { AddStudent } from "../api/StudentFetch"
-import { AddStudent, UpdateStudent } from "../api/axios"
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { getStudent } from '../api/axios';
+import { Formik, Form } from 'formik';
+import validationSchema, { ALLOWED_COURSES } from '../validation/validation';
+import { AddStudent, UpdateStudent, getStudent, AllStudent } from '../api/axios';
+import { IconArrowLeft, IconCheck, IconRotateCcw } from '../ui/Icons';
+import Loading from '../ui/Loading';
 
+const StudentForm = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-function FormExample() {
-    const { Formik } = formik;
-    const navigate = useNavigate()
+  const [initialValues, setInitialValues] = useState({
+    name: '',
+    GRid: '',
+    course: 'full stack development',
+    MobileNumber: '',
+  });
 
-    const { id } = useParams()
+  const [allStudents, setAllStudents] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [apiError, setApiError] = useState('');
 
-    const [intialValue, setIntialValue] = useState({
-        name: '',
-        GRid: '',
-        course: '',
-        MobileNumber: '',
-    })
+  useEffect(() => {
+    AllStudent()
+      .then((data) => setAllStudents(Array.isArray(data) ? data : []))
+      .catch((err) => console.warn(err.message));
+  }, []);
 
-
-    useEffect(() => {
-
-        if (id) {
-            LoadStudent()
-
-
-        }
-
-    }, [id])
-
-
-    async function LoadStudent() {
-        try {
-
-            const data = await getStudent(id)
-
-            console.log("ID:", id)
-            console.log("STUDENT DATA:", data)
-
-            setIntialValue({
-                name: data.name,
-                GRid: data.GRid,
-                course: data.course,
-                MobileNumber: data.MobileNumber,
-            })
-
-        } catch (error) {
-            console.log(error);
-
-        }
+  const loadStudentData = useCallback(async (studentId) => {
+    try {
+      setLoading(true);
+      setApiError('');
+      const data = await getStudent(studentId);
+      if (data) {
+        setInitialValues({
+          name: data.name || '',
+          GRid: data.GRid !== undefined ? String(data.GRid) : '',
+          course: data.course || 'full stack development',
+          MobileNumber: data.MobileNumber !== undefined ? String(data.MobileNumber) : '',
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      setApiError(err.message || 'Could not fetch student record.');
+    } finally {
+      setLoading(false);
     }
+  }, []);
 
-    return (
-        <>
+  useEffect(() => {
+    if (id) {
+      loadStudentData(id);
+    }
+  }, [id, loadStudentData]);
 
+  if (loading) {
+    return <Loading />;
+  }
 
+  return (
+    <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div>
+          <button
+            type="button"
+            className="btn-sms-secondary"
+            onClick={() => navigate('/')}
+            style={{ marginBottom: '8px' }}
+          >
+            <IconArrowLeft size={15} /> Back
+          </button>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
+            {id ? 'Edit Student Record' : 'Add New Student'}
+          </h2>
+        </div>
+      </div>
 
+      {apiError && (
+        <div style={{ backgroundColor: 'var(--danger-bg)', color: 'var(--danger)', padding: '12px 16px', borderRadius: 'var(--radius-md)', marginBottom: '16px', border: '1px solid var(--danger-border)', fontSize: '0.88rem' }}>
+          <strong>Error: </strong> {apiError}
+        </div>
+      )}
 
-            <div className="container mt-5">
+      <div className="sms-card">
+        <div className="form-title-bar">
+          Student Information
+        </div>
 
-                <Formik
-                    validationSchema={validationSchema}
-                    onSubmit={async (value, { resetForm }) => {
-                        try {
-                            let result
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          enableReinitialize
+          onSubmit={async (values, { setFieldError }) => {
+            try {
+              setSubmitting(true);
+              setApiError('');
 
-                            if (id) {
-                                result = await UpdateStudent(id, value)
-                            } else {
-                                result = await AddStudent(value)
-                            }
+              const parsedGrid = Number(values.GRid);
 
+              const isDuplicate = allStudents.some(
+                (s) => Number(s.GRid) === parsedGrid && (!id || String(s._id) !== String(id))
+              );
 
+              if (isDuplicate) {
+                setFieldError('GRid', `GR ID ${parsedGrid} already exists in the database. Please enter a unique GR ID.`);
+                setSubmitting(false);
+                return;
+              }
 
-                            if (result) {
-                                resetForm()
+              if (id) {
+                await UpdateStudent(id, values);
+              } else {
+                await AddStudent(values);
+              }
 
-                                navigate("/")
-                            }
+              navigate('/');
+            } catch (err) {
+              const msg = err.response?.data?.message || err.message || 'Failed to save student record.';
+              setApiError(msg);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ values, errors, touched, handleChange, handleBlur, resetForm }) => (
+            <Form noValidate>
+              <div className="form-group-item">
+                <label className="form-label-standard">Student Full Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="e.g. John Doe"
+                  className={`form-input-standard ${touched.name && errors.name ? 'is-invalid' : ''}`}
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {touched.name && errors.name && (
+                  <div className="field-error-text">{errors.name}</div>
+                )}
+              </div>
 
-                        } catch (error) {
-                            console.log(error);
+              <div className="form-group-item">
+                <label className="form-label-standard">GR ID (Numeric) *</label>
+                <input
+                  type="number"
+                  name="GRid"
+                  placeholder="e.g. 101"
+                  className={`form-input-standard ${touched.GRid && errors.GRid ? 'is-invalid' : ''}`}
+                  value={values.GRid}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {touched.GRid && errors.GRid && (
+                  <div className="field-error-text">{errors.GRid}</div>
+                )}
+              </div>
 
-                        }
-
-                    }}
-                    initialValues={intialValue}
-                    enableReinitialize
+              <div className="form-group-item">
+                <label className="form-label-standard">Course *</label>
+                <select
+                  name="course"
+                  className={`form-input-standard ${touched.course && errors.course ? 'is-invalid' : ''}`}
+                  value={values.course}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 >
-                    {({ handleSubmit, handleChange, values, touched, errors }) => (
-                        <Form noValidate onSubmit={handleSubmit}>
+                  {ALLOWED_COURSES.map((crs) => (
+                    <option key={crs} value={crs}>
+                      {crs}
+                    </option>
+                  ))}
+                </select>
+                {touched.course && errors.course && (
+                  <div className="field-error-text">{errors.course}</div>
+                )}
+              </div>
 
+              <div className="form-group-item">
+                <label className="form-label-standard">Mobile Number (10 Digits) *</label>
+                <input
+                  type="tel"
+                  name="MobileNumber"
+                  maxLength={10}
+                  placeholder="e.g. 9876543210"
+                  className={`form-input-standard ${touched.MobileNumber && errors.MobileNumber ? 'is-invalid' : ''}`}
+                  value={values.MobileNumber}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {touched.MobileNumber && errors.MobileNumber && (
+                  <div className="field-error-text">{errors.MobileNumber}</div>
+                )}
+              </div>
 
-                            <Row className="mb-3">
-                                <Form.Group
-                                    as={Col}
-                                    md="4"
-                                    controlId="validationFormik101"
-                                >
-                                    <Form.Label>Name</Form.Label>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--border-color)', paddingTop: '18px', marginTop: '22px', flexWrap: 'wrap', gap: '10px' }}>
+                <button
+                  type="button"
+                  className="btn-sms-secondary"
+                  onClick={() => resetForm({ values: { name: '', GRid: '', course: 'full stack development', MobileNumber: '' } })}
+                  disabled={submitting}
+                  title="Clear all fields"
+                >
+                  <IconRotateCcw size={14} />
+                  <span>Reset Form</span>
+                </button>
 
-                                    <Form.Control
-                                        type="text"
-                                        name="name"
-                                        placeholder="Name"
-                                        value={values.name}
-                                        onChange={handleChange}
-                                        isValid={touched.name && !errors.name}
-                                    />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    type="button"
+                    className="btn-sms-secondary"
+                    onClick={() => navigate('/')}
+                    disabled={submitting}
+                  >
+                    Cancel
+                  </button>
 
-                                    <Form.Control.Feedback>
-                                        Looks good!
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                  <button
+                    type="submit"
+                    className="btn-sms-primary"
+                    disabled={submitting}
+                  >
+                    <IconCheck size={16} />
+                    <span>{submitting ? 'Saving...' : id ? 'Update Record' : 'Save Record'}</span>
+                  </button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
+};
 
-                            </Row>
-                            <Row className="mb-3">
-                                <Form.Group
-                                    as={Col}
-                                    md="4"
-                                    controlId="validationFormik103"
-                                    className="position-relative"
-                                >
-                                    <Form.Label>GR id</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="GRid"
-                                        name="GRid"
-                                        value={values.GRid}
-                                        onChange={handleChange}
-                                        isInvalid={!!errors.GRid}
-                                    />
-
-                                    <Form.Control.Feedback type="invalid" tooltip>
-                                        {errors.GRid}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-                            </Row>
-                            <Row className="mb-3">
-                                <Form.Group
-                                    as={Col}
-                                    md="4"
-                                    controlId="validationFormik102"
-                                    className="position-relative"
-                                >
-                                    <Form.Label>course</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        required
-                                        name="course"
-                                        placeholder="course"
-                                        value={values.course}
-                                        onChange={handleChange}
-                                        isInvalid={!!errors.course}
-                                    />
-                                    <Form.Control.Feedback type="invalid" tooltip>
-                                        {errors.course}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-
-                            </Row>
-                            <Row className="mb-3">
-                                <Form.Group
-                                    as={Col}
-                                    md="4"
-                                    controlId="validationFormik104"
-                                    className="position-relative"
-                                >
-                                    <Form.Label>Mobile Number</Form.Label>
-                                    <Form.Control
-                                        type="number"
-                                        required
-                                        name="MobileNumber"
-                                        placeholder="Mobile Number"
-                                        value={values.MobileNumber}
-                                        onChange={handleChange}
-                                        isInvalid={!!errors.MobileNumber}
-                                    />
-                                    <Form.Control.Feedback type="invalid" tooltip>
-                                        {errors.MobileNumber}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-
-
-                            </Row>
-
-                            <Button type="submit">{
-                                id ? "Update Student" : "Add Student"}  </Button>
-                        </Form>
-                    )}
-                </Formik >
-
-
-
-            </div >
-        </>
-    );
-}
-
-export default FormExample;
+export default StudentForm;
