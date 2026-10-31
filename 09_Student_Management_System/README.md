@@ -122,4 +122,3 @@ Full Stack Developer
 
 ---
 
-⭐ If you find this project useful, consider giving it a star!
