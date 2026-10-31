@@ -356,7 +356,8 @@ body {
   pointer-events: none;
 }
 
-.search-field-box input {
+.search-field-box input,
+.sms-input {
   width: 100%;
   height: 38px;
   padding: 0 12px 0 38px;
@@ -369,7 +370,8 @@ body {
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.search-field-box input:focus {
+.search-field-box input:focus,
+.sms-input:focus {
   border-color: var(--border-focus);
   box-shadow: 0 0 0 2px var(--focus-ring);
 }

@@ -378,8 +378,8 @@ const Student = () => {
 
       <div className="sms-card" style={{ marginBottom: '16px' }}>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
-          <div style={{ position: 'relative', flex: '1 1 260px' }}>
-            <span style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', display: 'flex', pointerEvents: 'none' }}>
+          <div style={{ position: 'relative', flex: '1 1 420px', minWidth: '340px' }}>
+            <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', display: 'flex', pointerEvents: 'none' }}>
               <IconSearch size={15} />
             </span>
             <input
@@ -391,7 +391,7 @@ const Student = () => {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
               }}
-              style={{ paddingLeft: '32px' }}
+              style={{ width: '100%', height: '38px', paddingLeft: '36px', paddingRight: searchTerm ? '32px' : '12px' }}
             />
             {searchTerm && (
               <button
