@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import Navbar from '../ui/Navbar';
+import Navbar from '../ui/navbar';
 import Sidebar from '../ui/Sidebar';
 import { ThemeProvider } from '../context/ThemeContext';
 

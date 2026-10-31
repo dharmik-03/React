@@ -1,4 +1,4 @@
-const BASEURL = import.meta.env.VITE_BASE_URL;
+const BASEURL = import.meta.env.VITE_BASE_URL || 'https://node-js-3-u0e0.onrender.com/student';
 
 export const AllStudent = async () => {
   const res = await fetch(`${BASEURL}/AllStudent`);
