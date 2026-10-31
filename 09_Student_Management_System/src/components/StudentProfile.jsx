@@ -23,11 +23,11 @@ const StudentProfile = ({ studentId: propStudentId, isModal = false, onClose }) 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const loadStudentProfile = useCallback(async (studentId) => {
+  const loadStudentProfile = useCallback(async (targetId) => {
     try {
       setLoading(true);
       setError(null);
-      const data = await getStudent(studentId);
+      const data = await getStudent(targetId);
       setStudent(data);
     } catch (err) {
       setError(err.message || 'Unable to fetch student details.');
@@ -138,72 +138,71 @@ const StudentProfile = ({ studentId: propStudentId, isModal = false, onClose }) 
         <table className="sms-data-table" style={{ marginTop: '14px' }}>
           <tbody>
             <tr>
-              <th style={{ width: '220px' }}>Student Full Name</th>
+              <th style={{ width: '220px' }}>GR ID Number</th>
+              <td>
+                <span className="grid-badge">{student.GRid}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Full Name</th>
               <td style={{ fontWeight: 600 }}>{student.name}</td>
             </tr>
             <tr>
-              <th>GR ID Number</th>
-              <td style={{ fontFamily: 'monospace', fontWeight: 600 }}>{student.GRid}</td>
-            </tr>
-            <tr>
               <th>Enrolled Course</th>
-              <td style={{ textTransform: 'capitalize' }}>{student.course}</td>
+              <td>
+                <span className="badge-course">{student.course}</span>
+              </td>
             </tr>
             <tr>
-              <th>Mobile Number</th>
-              <td>
-                <a href={`tel:${student.MobileNumber}`} style={{ color: 'var(--link-color)', textDecoration: 'none' }}>
-                  {student.MobileNumber}
-                </a>
-              </td>
+              <th>Registered Mobile Number</th>
+              <td>{student.MobileNumber}</td>
             </tr>
             <tr>
               <th>Database Record ID</th>
-              <td style={{ fontFamily: 'monospace', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                {student._id}
-              </td>
+              <td style={{ fontFamily: 'monospace', fontSize: '0.85rem' }}>{student._id}</td>
             </tr>
           </tbody>
         </table>
-
-        {isModal && (
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-            <button
-              type="button"
-              className="btn-sms-secondary"
-              onClick={handlePrint}
-            >
-              <IconPrinter size={15} /> Print Details
-            </button>
-          </div>
-        )}
       </div>
 
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title style={{ fontSize: '1rem', fontWeight: 600 }}>Confirm Deletion</Modal.Title>
+      <Modal
+        show={showDeleteModal}
+        onHide={() => !deleting && setShowDeleteModal(false)}
+        centered
+        backdrop="static"
+      >
+        <Modal.Header closeButton={!deleting}>
+          <Modal.Title style={{ fontSize: '1.05rem', fontWeight: 600 }}>Confirm Deletion</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-            <div style={{ color: 'var(--danger)' }}>
+            <div style={{ color: 'var(--danger)', flexShrink: 0 }}>
               <IconAlertTriangle size={24} />
             </div>
             <div>
-              <p style={{ margin: 0, fontWeight: 600, color: 'var(--text-main)', fontSize: '0.92rem' }}>
-                Delete student record for "{student.name}" (GR ID: {student.GRid})?
+              <p style={{ margin: '0 0 6px', fontWeight: 600, color: 'var(--text-main)' }}>
+                Delete student record permanently?
               </p>
-              <p style={{ margin: '6px 0 0', fontSize: '0.84rem', color: 'var(--text-muted)' }}>
-                This record will be permanently deleted from the database.
+              <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--text-muted)' }}>
+                Are you sure you want to delete <strong>{student.name}</strong> (GR ID: #{student.GRid})? This action cannot be undone.
               </p>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" size="sm" onClick={() => setShowDeleteModal(false)} disabled={deleting}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowDeleteModal(false)}
+            disabled={deleting}
+          >
             Cancel
           </Button>
-          <Button variant="danger" size="sm" onClick={handleDelete} disabled={deleting}>
-            {deleting ? 'Deleting...' : 'Delete Record'}
+          <Button
+            variant="danger"
+            onClick={handleDelete}
+            disabled={deleting}
+          >
+            {deleting ? 'Deleting...' : 'Delete Student'}
           </Button>
         </Modal.Footer>
       </Modal>

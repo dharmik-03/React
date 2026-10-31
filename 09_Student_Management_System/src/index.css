@@ -548,6 +548,18 @@ body {
   text-transform: capitalize;
 }
 
+.grid-badge {
+  display: inline-block;
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  background-color: var(--bg-muted);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
 .action-group {
   display: flex;
   align-items: center;
@@ -555,8 +567,9 @@ body {
 }
 
 .btn-action-text {
-  height: 28px;
-  padding: 0 10px;
+  height: 30px;
+  width: 30px;
+  padding: 0;
   font-size: 0.8rem;
   font-weight: 500;
   border: 1px solid var(--border-color);
@@ -567,7 +580,7 @@ body {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
   transition: all 0.15s ease;
 }
 

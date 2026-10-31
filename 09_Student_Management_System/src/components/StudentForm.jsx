@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import validationSchema, { ALLOWED_COURSES } from '../validation/validation';
@@ -28,32 +28,24 @@ const StudentForm = () => {
       .catch((err) => console.warn(err.message));
   }, []);
 
-  const loadStudentData = useCallback(async (studentId) => {
-    try {
-      setLoading(true);
-      setApiError('');
-      const data = await getStudent(studentId);
-      if (data) {
-        setInitialValues({
-          name: data.name || '',
-          GRid: data.GRid !== undefined ? String(data.GRid) : '',
-          course: data.course || 'full stack development',
-          MobileNumber: data.MobileNumber !== undefined ? String(data.MobileNumber) : '',
-        });
-      }
-    } catch (err) {
-      console.error(err);
-      setApiError(err.message || 'Could not fetch student record.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
     if (id) {
-      loadStudentData(id);
+      setLoading(true);
+      getStudent(id)
+        .then((data) => {
+          if (data) {
+            setInitialValues({
+              name: data.name || '',
+              GRid: data.GRid !== undefined ? String(data.GRid) : '',
+              course: data.course || 'full stack development',
+              MobileNumber: data.MobileNumber !== undefined ? String(data.MobileNumber) : '',
+            });
+          }
+        })
+        .catch((err) => setApiError(err.message || 'Could not fetch student record.'))
+        .finally(() => setLoading(false));
     }
-  }, [id, loadStudentData]);
+  }, [id]);
 
   if (loading) {
     return <Loading />;
