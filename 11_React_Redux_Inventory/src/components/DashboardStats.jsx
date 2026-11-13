@@ -5,6 +5,7 @@ import {
   setSelectedCategory,
 } from '../feature/InventorySlice';
 
+
 const DashboardStats = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.inventory.products);
@@ -21,7 +22,6 @@ const DashboardStats = () => {
   const outOfStockProducts = products.filter((p) => p.qty === 0);
   const healthyCount = products.filter((p) => p.qty > (p.minStock || 5)).length;
 
-  // Category counts
   const categoryMap = products.reduce((acc, p) => {
     const cat = p.category || 'Other';
     acc[cat] = (acc[cat] || 0) + 1;
@@ -40,7 +40,6 @@ const DashboardStats = () => {
 
   return (
     <div className="dashboard-metrics-container">
-      {/* 4 Unified KPI Stat Tiles */}
       <div className="stats-row">
         <div
           className="stat-tile"
@@ -90,7 +89,6 @@ const DashboardStats = () => {
         </div>
       </div>
 
-      {/* Stock Health & Category Distribution (Minimalist Linear Style) */}
       <div className="overview-strip">
         <div className="overview-section">
           <span className="overview-title">Inventory Health</span>
