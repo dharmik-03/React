@@ -1,158 +1,66 @@
-# Redux Inventory Management System
+# Stockwise — Inventory Management
 
-A modern and responsive Inventory Management Application built with **React, Redux Toolkit, JavaScript, and Vite**. This project provides a practical way to manage products, monitor stock, and understand Redux Toolkit through a real-world inventory management application.
+A minimal, modern, and practical Inventory Management application built with **React 19, Redux Toolkit, JavaScript, and Vite**.
 
-## Features
+Designed with a clean, understated SaaS aesthetic (inspired by Linear and Stripe), Stockwise balances visual clarity with real-world inventory control tools.
 
-### Dashboard
-- Modern inventory dashboard.
-- Total products overview.
-- Total stock quantity.
-- Total inventory value.
-- Low-stock product statistics.
+---
 
-### Product Management
-- Add new products.
-- Edit existing products.
-- Delete products.
-- View product details.
-- Manage product name, price, quantity, and category.
-- Update product stock.
+## Key Features
 
-### Search, Sorting & Filtering
-- Search products by name.
-- Alphabetical sorting (A–Z / Z–A).
-- Price sorting (Low to High / High to Low).
-- Quantity sorting (Low to High / High to Low).
-- Filter products by category.
-- Pagination for product lists.
+### 1. Minimal SaaS Dashboard
+- **Total Inventory Value**: Calculated dynamically from all SKU unit prices & quantities.
+- **Active Products & Stock Volume**: Real-time units on hand.
+- **Stock Health Pills**: Instant visibility into Healthy, Low Stock, and Out of Stock items.
+- **Category Filter Chips**: 1-click filtering by category distribution.
+- **Activity Audit Trail**: Live log of creations, edits, deletions, and restock events.
 
-### Inventory Management
-- Track available stock.
-- Low-stock alerts and indicators.
-- Product category management.
-- Inventory value calculation.
-- Stock updates and monitoring.
+### 2. Product Catalog Management
+- **Full CRUD**: Add, edit, delete, and inspect product specifications.
+- **Direct Stock Stepper**: `+` and `−` quantity adjustments directly within table rows.
+- **Reorder Thresholds**: Configurable safety stock levels triggering low-stock indicators.
+- **Live Search**: Instant multi-attribute search across names, SKUs, and categories.
+- **Filters & Sorting**: Category filtering, stock status filtering, alphabetical (A–Z / Z–A), price, and stock quantity sorting.
+- **Pagination**: Clean item-range indicator with page navigation.
+- **CSV Data Export**: 1-click export of current filtered view to `.csv` spreadsheet.
 
-### UI/UX
-- Modern and clean dashboard design.
-- Responsive layout for desktop, tablet, and mobile.
-- Light and dark mode.
-- Sidebar and navigation.
-- Modern cards, tables, forms, and dropdowns.
-- Toast notifications.
-- Loading and empty states.
-- Confirmation dialogs before deleting.
-- Form validation.
-- Smooth transitions and subtle animations.
+### 3. Inventory Replenishment (Low Stock View)
+- Dedicated low-stock screen showing depleted items and deficit counts.
+- 1-click quick restock buttons (`+5`, `+10`, `+25` units).
 
-## Technologies Used
+### 4. Polished User Experience
+- **Understated Design System**: White and soft-grey surfaces with subtle blue accents, clean borders, and zero decorative bloat.
+- **Light & Dark Mode**: Persistent theme switcher with `localStorage` sync.
+- **Form Validation**: Immediate error messaging for missing names, invalid prices, or negative stock.
+- **Confirm Dialogs**: Accessible confirmation modal before removing catalog items.
+- **Toast Notifications**: Minimal, auto-dismissing status feedback.
+- **Responsive**: Fluid navigation with collapsible mobile drawer.
 
-- React
-- JavaScript
-- Redux Toolkit
-- React Redux
-- Vite
-- CSS
+---
 
-## Project Structure
+## Tech Stack
+- **React 19**
+- **Redux Toolkit 2.x** (`@reduxjs/toolkit`, `react-redux`)
+- **Vite 8.x**
+- **Vanilla CSS** with CSS Custom Properties
 
-```text
-11_React_Redux_Inventory/
-│
-├── public/
-│
-├── src/
-│   ├── assets/
-│   │
-│   ├── components/
-│   │   ├── Add.jsx
-│   │   └── List.jsx
-│   │
-│   ├── feature/
-│   │   └── InventorySlice.js
-│   │
-│   ├── store/
-│   │   └── store.js
-│   │
-│   ├── App.css
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-│
-├── .gitignore
-├── eslint.config.js
-├── index.html
-├── package.json
-├── package-lock.json
-├── README.md
-└── vite.config.js
-```
+---
 
-## Redux Toolkit Implementation
-
-This project uses Redux Toolkit for centralized inventory state management.
-
-- **InventorySlice.js:** Manages inventory state, reducers, and actions.
-- **store.js:** Configures the Redux store.
-- **main.jsx:** Provides the Redux store using Provider.
-- **Add.jsx:** Handles product creation and editing.
-- **List.jsx:** Handles product listing, searching, sorting, filtering, and product actions.
-
-## Installation & Setup
-
-**1. Clone the repository**
+## Getting Started
 
 ```bash
-git clone <your-repository-url>
-```
-
-**2. Navigate to the project**
-
-```bash
+# Navigate to directory
 cd 11_React_Redux_Inventory
-```
 
-**3. Install dependencies**
-
-```bash
+# Install dependencies (if not already installed)
 npm install
-```
 
-**4. Start development server**
-
-```bash
+# Start development server
 npm run dev
+
+# Run ESLint check
+npm run lint
+
+# Build for production
+npm run build
 ```
-
-Open the local URL provided by Vite.
-
-## React & Redux Concepts Learned
-
-- Redux Store Configuration.
-- Redux Toolkit createSlice().
-- Redux configureStore().
-- useSelector() and useDispatch().
-- Global State Management.
-- CRUD Operations.
-- Array Filtering and Sorting.
-- Controlled Forms.
-- Component Communication.
-- Reusable React Components.
-- State-driven UI Updates.
-
-## Future Improvements
-
-- Backend API integration.
-- Database integration.
-- User authentication.
-- Product image uploads.
-- Inventory reports.
-- CSV export.
-- Persistent inventory storage.
-
-## Author
-
-**Dharmik**
-
-Built as part of my React and Redux Toolkit learning journey.
