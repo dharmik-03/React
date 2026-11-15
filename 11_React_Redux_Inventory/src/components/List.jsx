@@ -121,6 +121,7 @@ const List = () => {
   };
 
   
+
   const handleExportCSV = () => {
     if (sortedProducts.length === 0) return;
     const headers = ['ID', 'Name', 'Category', 'SKU', 'Price', 'Quantity', 'Valuation', 'Status'];
