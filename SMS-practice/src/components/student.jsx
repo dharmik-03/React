@@ -12,6 +12,7 @@ const StudentPage = () => {
     useEffect(() => {
         LoadStudent()
     }, [])
+    
 
     const LoadStudent = async () => {
         try {
