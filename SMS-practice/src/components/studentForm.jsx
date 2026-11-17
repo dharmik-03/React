@@ -16,6 +16,8 @@ const StudentForm = () => {
 
     })
 
+
+    
     useEffect(() => {
         if (id) {
             GetStudentData(id)

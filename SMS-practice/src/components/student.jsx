@@ -5,14 +5,12 @@ import { useNavigate } from 'react-router-dom'
 const StudentPage = () => {
 
     const navigate = useNavigate()
-
-
     const [student, setStudent] = useState([])
 
     useEffect(() => {
         LoadStudent()
     }, [])
-    
+
 
     const LoadStudent = async () => {
         try {
