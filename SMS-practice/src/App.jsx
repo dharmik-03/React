@@ -6,6 +6,7 @@ import MainLayout from "./routes/MainLayout"
 
 const App = () => {
 
+  
 
   const router = createBrowserRouter([
     {
@@ -21,8 +22,8 @@ const App = () => {
           element: <StudentForm />
         },
         {
-          path:"edit/:id",
-          element:<StudentForm/>
+          path: "edit/:id",
+          element: <StudentForm />
         }
       ]
     }
