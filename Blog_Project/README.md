@@ -1,4 +1,4 @@
-# Blog App — React Frontend
+# Blog App —
 
 A clean, beginner-friendly React blog application built with **React**, **Vite**, **React Router DOM**, **Axios**, and pure CSS. Connected with a REST API backend supporting JWT Authentication, MongoDB, and Cloudinary image uploads.
 
@@ -6,35 +6,40 @@ A clean, beginner-friendly React blog application built with **React**, **Vite**
 
 ## 📸 Screenshots
 
-> **Note:** Replace the image paths below with your actual screenshot URLs or local paths (e.g., `./screenshots/filename.png`).
 
 ### 1. Home Page (All Blogs)
-![Home Page / All Blogs](./screenshots/home.png)
+<img width="1285" height="718" alt="image" src="https://github.com/user-attachments/assets/fc0782ec-eb60-426d-a304-6e3ec6aeb137" />
+
 
 ---
 
 ### 2. Blog Detail Page
-![Blog Detail Page](./screenshots/detail.png)
+<img width="913" height="709" alt="image" src="https://github.com/user-attachments/assets/1b4f931c-aa91-432b-82ca-5d9cf2ae0ebc" />
+
 
 ---
 
 ### 3. Create Blog Page
-![Create Blog Page](./screenshots/create.png)
+<img width="1028" height="666" alt="Screenshot 2026-11-27 201909" src="https://github.com/user-attachments/assets/f4fb0d49-b85e-42ee-80dd-e6f7291f087f" />
+
 
 ---
 
 ### 4. Edit Blog Page
-![Edit Blog Page](./screenshots/edit.png)
+<img width="880" height="659" alt="image" src="https://github.com/user-attachments/assets/5459dd0d-01bd-4f59-a39a-63230a4089d7" />
+
 
 ---
 
 ### 5. Login Page
-![Login Page](./screenshots/login.png)
+<img width="880" height="629" alt="image" src="https://github.com/user-attachments/assets/60869f7f-964d-4ae0-946d-d90489831743" />
+
 
 ---
 
 ### 6. Register Page
-![Register Page](./screenshots/register.png)
+<img width="1088" height="697" alt="Screenshot 2026-11-27 201544" src="https://github.com/user-attachments/assets/fc981234-b343-4874-80ef-f8aa0da93572" />
+
 
 ---
 
@@ -144,31 +149,3 @@ All requests use the base URL defined in `.env`:
 
 ---
 
-## 🚀 Getting Started
-
-### 1. Clone the repository
-```bash
-git clone <repository-url>
-cd Blog_Project
-```
-
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Run development server
-```bash
-npm run dev
-```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-### 4. Build for production
-```bash
-npm run build
-```
-
-### 5. Preview production build
-```bash
-npm run preview
-```
